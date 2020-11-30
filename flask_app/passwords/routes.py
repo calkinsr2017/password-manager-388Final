@@ -3,18 +3,20 @@ from flask_login import current_user
 
 from .. import movie_client
 from ..forms import MovieReviewForm, SearchForm
-from ..models import User, Review
+from ..models import User, UserPasswords
 from ..utils import current_time
 
 
-movies = Blueprint("movies", __name__)
+passwords = Blueprint("passwords", __name__)
 
 
 """ ************ View functions ************ """
 
 
-@movies.route("/", methods=["GET", "POST"])
+@passwords.route("/", methods=["GET", "POST"])
+@login_required
 def index():
+    #The main user area. WHere you can add passwords/view them
     form = SearchForm()
 
     if form.validate_on_submit():
@@ -23,7 +25,7 @@ def index():
     return render_template("index.html", form=form)
 
 
-@movies.route("/search-results/<query>", methods=["GET"])
+@passwords.route("/search-results/<query>", methods=["GET"])
 def query_results(query):
     try:
         results = movie_client.search(query)
@@ -34,7 +36,7 @@ def query_results(query):
     return render_template("query.html", results=results)
 
 
-@movies.route("/movies/<movie_id>", methods=["GET", "POST"])
+@passwords.route("/movies/<movie_id>", methods=["GET", "POST"])
 def movie_detail(movie_id):
     try:
         result = movie_client.retrieve_movie_by_id(movie_id)
@@ -62,7 +64,7 @@ def movie_detail(movie_id):
     )
 
 
-@movies.route("/user/<username>")
+@passwords.route("/user/<username>")
 def user_detail(username):
     user = User.objects(username=username).first()
     reviews = Review.objects(commenter=user)

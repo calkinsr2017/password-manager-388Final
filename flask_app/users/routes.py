@@ -11,8 +11,27 @@ users = Blueprint("users", __name__)
 """ ************ User Management views ************ """
 
 
+@users.route("/account", methods=["GET", "POST"])
+@login_required
+def account():
+    username_form = UpdateUsernameForm()
+
+    if username_form.validate_on_submit():
+        # current_user.username = username_form.username.data
+        current_user.modify(username=username_form.username.data)
+        current_user.save()
+        return redirect(url_for("users.account"))
+
+    return render_template(
+        "account.html",
+        title="Account",
+        username_form=username_form,
+    )
+
+
 @users.route("/register", methods=["GET", "POST"])
 def register():
+    #This needs to be at the loggin page
     if current_user.is_authenticated:
         return redirect(url_for("movies.index"))
 
@@ -54,20 +73,3 @@ def logout():
     logout_user()
     return redirect(url_for("movies.index"))
 
-
-@users.route("/account", methods=["GET", "POST"])
-@login_required
-def account():
-    username_form = UpdateUsernameForm()
-
-    if username_form.validate_on_submit():
-        # current_user.username = username_form.username.data
-        current_user.modify(username=username_form.username.data)
-        current_user.save()
-        return redirect(url_for("users.account"))
-
-    return render_template(
-        "account.html",
-        title="Account",
-        username_form=username_form,
-    )

@@ -14,16 +14,16 @@ def load_user(user_id):
 class User(db.Document, UserMixin):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField(required=True, unique=True)
-    password = db.StringField(required=True)
+    masterPassword = db.StringField(required=True)
 
     # Returns unique string identifying our object
     def get_id(self):
         return self.username
 
 
-class Review(db.Document):
-    commenter = db.ReferenceField(User, required=True)
-    content = db.StringField(required=True, min_length=5, max_length=500)
-    date = db.StringField(required=True)
-    imdb_id = db.StringField(required=True, min_length=9, max_length=9)
-    movie_title = db.StringField(required=True, min_length=1, max_length=100)
+class UserPasswords(db.Document):
+    user = db.ReferenceField(User, required=True)
+    app = db.StringField(required=True, min_length=1, max_length=500)
+    appLink = db.StringField(required=False)
+    username = db.StringField(required=True, min_length=9, max_length=9)
+    password = db.StringField(required=True, min_length=1, max_length=100)
