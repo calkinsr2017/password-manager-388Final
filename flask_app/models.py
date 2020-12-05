@@ -26,5 +26,5 @@ class UserPasswords(db.Document):
     user = db.ReferenceField(User, required=True)
     app = db.StringField(required=True, min_length=1, max_length=500)
     appLink = db.StringField(required=False)
-    username = db.StringField(required=True, min_length=9, max_length=9)
+    username = db.StringField(required=True, min_length=1, max_length=40)
     password = db.StringField(required=True, min_length=1, max_length=100)
