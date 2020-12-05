@@ -8,21 +8,32 @@
 <div class="row">
     <div class="col">
         <form action="" method="post">
-            {{ username_form.csrf_token }}
+            {{ master_form.csrf_token }}
             <div class="form-group">
-                {{ username_form.username.label(class="form-control-label") }}
-                {{ username_form.username(class="form-control form-control-lg") }}
+                {{ master_form.username.label(class="form-control-label") }}
+                {{ master_form.username(class="form-control form-control-lg") }}
 
-                {% if username_form.username.errors %}
+                {{ master_form.password.label(class="form-control-label") }}
+                {{ master_form.password(class="form-control form-control-lg") }}
+
+                {% if master_form.username.errors %}
                 <div class="alert alert-warning" role="alert">
-                    {% for error in username_form.username.errors %}
+                    {% for error in master_form.username.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if master_form.password.errors %}
+                <div class="alert alert-warning" role="alert">
+                    {% for error in master_form.password.errors %}
                     <span>{{ error }}</span>
                     {% endfor %}
                 </div>
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ username_form.submit }}
+                {{ master_form.submit }}
             </div>
         </form>
     </div>

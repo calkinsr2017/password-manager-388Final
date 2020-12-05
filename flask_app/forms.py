@@ -24,10 +24,14 @@ class SearchForm(FlaskForm):
     submit = SubmitField("Search")
 
 
-class MovieReviewForm(FlaskForm):
+class PasswordForm(FlaskForm):
     text = TextAreaField(
-        "Comment", validators=[InputRequired(), Length(min=5, max=500)]
+        "App", validators=[InputRequired()])
+    text = TextAreaField("AppLink")
+    username = StringField(
+        "Username", validators=[InputRequired(), Length(min=1, max=40)]
     )
+    password = PasswordField("Password", validators=[InputRequired()])
     submit = SubmitField("Enter Comment")
 
 
@@ -59,10 +63,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
 
 
-class UpdateUsernameForm(FlaskForm):
+class UpdateMasterForm(FlaskForm):
     username = StringField(
         "Username", validators=[InputRequired(), Length(min=1, max=40)]
     )
+    password = PasswordField("Password", validators=[InputRequired()])
     submit = SubmitField("Update Username")
 
     def validate_username(self, username):

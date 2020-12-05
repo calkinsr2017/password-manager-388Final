@@ -14,11 +14,11 @@ users = Blueprint("users", __name__)
 @users.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
-    username_form = UpdateUsernameForm()
+    master_form = UpdateMasterForm()
 
     if username_form.validate_on_submit():
         # current_user.username = username_form.username.data
-        current_user.modify(username=username_form.username.data)
+        current_user.modify(username=master_form.username.data, password = master_form.password.data)
         current_user.save()
         return redirect(url_for("users.account"))
 
