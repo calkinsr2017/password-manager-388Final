@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, render_template, flash, request
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .. import bcrypt
-from ..forms import RegistrationForm, LoginForm, UpdateUsernameForm
+from ..forms import RegistrationForm, LoginForm, UpdateMasterForm
 from ..models import User
 
 
@@ -16,7 +16,7 @@ users = Blueprint("users", __name__)
 def account():
     master_form = UpdateMasterForm()
 
-    if username_form.validate_on_submit():
+    if master_form.validate_on_submit():
         # current_user.username = username_form.username.data
         current_user.modify(username=master_form.username.data, password = master_form.password.data)
         current_user.save()
@@ -25,7 +25,7 @@ def account():
     return render_template(
         "account.html",
         title="Account",
-        username_form=_form,
+        master_form=master_form,
     )
 
 
@@ -33,7 +33,7 @@ def account():
 def register():
     #This needs to be at the loggin page
     if current_user.is_authenticated:
-        return redirect(url_for("movies.index"))
+        return redirect(url_for("passwords.index"))
 
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -49,7 +49,7 @@ def register():
 @users.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("movies.index"))
+        return redirect(url_for("passwords.index"))
 
     form = LoginForm()
     if form.validate_on_submit():
@@ -71,5 +71,5 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("movies.index"))
+    return redirect(url_for("passwords.index"))
 

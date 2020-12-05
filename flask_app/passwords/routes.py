@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash
 from flask_login import current_user
 
-from ..forms import MovieReviewForm, SearchForm
+from ..forms import PasswordForm, SearchForm
 from ..models import User, UserPasswords
 from ..utils import current_time
 
@@ -18,7 +18,7 @@ def index():
     form = SearchForm()
 
     if form.validate_on_submit():
-        return redirect(url_for("movies.query_results", query=form.search_query.data))
+        return redirect(url_for("passwords.query_results", query=form.search_query.data))
 
     return render_template("index.html", form=form)
 
