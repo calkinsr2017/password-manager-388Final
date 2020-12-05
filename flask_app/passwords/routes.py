@@ -18,7 +18,7 @@ def index():
     form = SearchForm()
 
     if form.validate_on_submit():
-        return redirect(url_for("passwords.search-results", app_name=form.search_app.data))
+        return redirect(url_for("passwords.search_query", app_name=search_form.search_query.data))
 
     return render_template("index.html", form=form)
 
