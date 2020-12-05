@@ -19,13 +19,13 @@ from .models import User
 
 class SearchForm(FlaskForm):
     search_query = StringField(
-        "Query", validators=[InputRequired(), Length(min=1, max=100)]
+        "App Name", validators=[InputRequired(), Length(min=1, max=100)]
     )
     submit = SubmitField("Search")
 
 
 class PasswordForm(FlaskForm):
-    app = TextAreaField(
+    app = StringField(
         "App", validators=[InputRequired()])
     appLink = TextAreaField("AppLink")
     username = StringField(

@@ -2,7 +2,7 @@ from flask import Blueprint, redirect, url_for, render_template, flash, request
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .. import bcrypt
-from ..forms import RegistrationForm, LoginForm, UpdateMasterForm
+from ..forms import RegistrationForm, LoginForm, UpdateMasterForm, SearchForm
 from ..models import User
 
 
@@ -14,6 +14,11 @@ users = Blueprint("users", __name__)
 @users.route("/account", methods=["GET", "POST"])
 @login_required
 def account():
+    search_form = SearchForm()
+
+    if search_form.validate_on_submit():
+        return redirect(url_for("passwords.search_query", app_name=search_form.search_query.data))
+
     master_form = UpdateMasterForm()
 
     if master_form.validate_on_submit():
@@ -26,6 +31,7 @@ def account():
         "account.html",
         title="Account",
         master_form=master_form,
+        search_form =search_form,
     )
 
 

@@ -18,21 +18,17 @@ def index():
     form = SearchForm()
 
     if form.validate_on_submit():
-        return redirect(url_for("passwords.query_results", query=form.search_query.data))
+        return redirect(url_for("passwords.search-results", app_name=form.search_app.data))
 
     return render_template("index.html", form=form)
 
 
-@passwords.route("/search-results/<query>", methods=["GET"])
-def query_results(query):
-    try:
-        results = movie_client.search(query)
-    except ValueError as e:
-        flash(str(e))
-        return redirect(url_for("movies.index"))
+@passwords.route("/search-results/<app_name>", methods=["GET", "POST"])
+def search_query(app_name):
+
+    results = UserPasswords.objects(app = app_name)
 
     return render_template("query.html", results=results)
-
 
 @passwords.route("/apps", methods=["GET", "POST"])
 def app_details():
