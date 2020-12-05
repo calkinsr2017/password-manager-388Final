@@ -32,7 +32,7 @@ class PasswordForm(FlaskForm):
         "Username", validators=[InputRequired(), Length(min=1, max=40)]
     )
     password = PasswordField("Password", validators=[InputRequired()])
-    submit = SubmitField("Enter Comment")
+    submit = SubmitField("Submit")
 
 
 class RegistrationForm(FlaskForm):

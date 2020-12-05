@@ -34,8 +34,8 @@ def query_results(query):
     return render_template("query.html", results=results)
 
 
-@passwords.route("/movies/<movie_id>", methods=["GET", "POST"])
-def app_details(app_name):
+@passwords.route("/apps", methods=["GET", "POST"])
+def app_details():
 
     form = PasswordForm()
     if form.validate_on_submit() and current_user.is_authenticated:
@@ -50,15 +50,15 @@ def app_details(app_name):
 
         return redirect(request.path)
 
-    passwords = UserPasswords.objects.find()
+    passwords = UserPasswords.objects.all()
 
     return render_template(
-        "movie_detail.html", form=form, apps = passwords)
+        "app_details.html", form=form, passwords = passwords)
 
 
 @passwords.route("/user/<username>")
 def user_detail(username):
     user = User.objects(username=username).first()
-    reviews = Review.objects(commenter=user)
+    passwords = UserPasswords.objects(user=user)
 
-    return render_template("user_detail.html", username=username, reviews=reviews)
+    return render_template("user_detail.html", username=username, passwords=passwords)
