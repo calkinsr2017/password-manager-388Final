@@ -25,9 +25,9 @@ class SearchForm(FlaskForm):
 
 
 class PasswordForm(FlaskForm):
-    text = TextAreaField(
+    app = TextAreaField(
         "App", validators=[InputRequired()])
-    text = TextAreaField("AppLink")
+    appLink = TextAreaField("AppLink")
     username = StringField(
         "Username", validators=[InputRequired(), Length(min=1, max=40)]
     )
