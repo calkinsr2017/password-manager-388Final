@@ -35,31 +35,25 @@ def query_results(query):
 
 
 @passwords.route("/movies/<movie_id>", methods=["GET", "POST"])
-def movie_detail(movie_id):
-    try:
-        result = movie_client.retrieve_movie_by_id(movie_id)
-    except ValueError as e:
-        flash(str(e))
-        return redirect(url_for("users.login"))
+def app_details(app_name):
 
-    form = MovieReviewForm()
+    form = PasswordForm()
     if form.validate_on_submit() and current_user.is_authenticated:
-        review = Review(
-            commenter=current_user._get_current_object(),
-            content=form.text.data,
-            date=current_time(),
-            imdb_id=movie_id,
-            movie_title=result.title,
+        password = UserPasswords(
+            user = current_user._get_current_object(), 
+            app = form.app.data, 
+            appLink = form.appLink.data, 
+            username = form.username.data, 
+            password = form.password.data,
         )
-        review.save()
+        password.save()
 
         return redirect(request.path)
 
-    reviews = Review.objects(imdb_id=movie_id)
+    passwords = UserPasswords.objects.find()
 
     return render_template(
-        "movie_detail.html", form=form, movie=result, reviews=reviews
-    )
+        "movie_detail.html", form=form, apps = passwords)
 
 
 @passwords.route("/user/<username>")
