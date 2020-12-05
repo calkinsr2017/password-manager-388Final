@@ -16,14 +16,17 @@
             <li class="media review-item">
                 <div class="media-body">
                     <span class="float-right">
-                        <small>{{ password.app }}</small>
+                        
                     </span>
-                    <strong>For: <a href="{{ url_for('passwords.app_details') }}">
-                            {{ password.appLink }}
-                        </a>
-                    </strong>
+                    <strong>
+                        <br> App:  {{ password.app }}
+                        </strong>
+                        <br> Username: {{ password.username }} 
+                        <br> Password: {{ password.password }}
+                        <br> Link:{{ password.appLink }}                       
+                    
                     <p>
-                        {{ password.username }}
+                        
                     </p>
                 </div>
             </li>
