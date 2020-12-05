@@ -14,7 +14,8 @@ def load_user(user_id):
 class User(db.Document, UserMixin):
     username = db.StringField(required=True, unique=True)
     email = db.EmailField(required=True, unique=True)
-    masterPassword = db.StringField(required=True)
+    #masterPassword
+    password = db.StringField(required=True)
 
     # Returns unique string identifying our object
     def get_id(self):

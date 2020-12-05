@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash
 from flask_login import current_user
 
-from .. import movie_client
 from ..forms import MovieReviewForm, SearchForm
 from ..models import User, UserPasswords
 from ..utils import current_time
@@ -14,7 +13,6 @@ passwords = Blueprint("passwords", __name__)
 
 
 @passwords.route("/", methods=["GET", "POST"])
-@login_required
 def index():
     #The main user area. WHere you can add passwords/view them
     form = SearchForm()
