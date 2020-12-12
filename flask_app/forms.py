@@ -13,9 +13,7 @@ from wtforms.validators import (
     ValidationError,
 )
 
-
 from .models import User
-
 
 class SearchForm(FlaskForm):
     search_query = StringField(
@@ -45,7 +43,7 @@ class RegistrationForm(FlaskForm):
         "Confirm Password", validators=[InputRequired(), EqualTo("password")]
     )
     submit = SubmitField("Sign Up")
-
+    
     def validate_username(self, username):
         user = User.objects(username=username.data).first()
         if user is not None:
@@ -61,6 +59,14 @@ class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
     submit = SubmitField("Login")
+    token = StringField('Token', validators = [InputRequired(), Length(min = 6, max = 6)])
+
+    def validate_token(self, token):
+        user = User.query.filter_by(username= self.username.data).first()
+        if user is not None:
+            tok_verified = pyotp.TOTP(user.otp.secret).verify(token.data)
+            if not tok_verified:
+                raise ValidationError("Invalid Token")
 
 
 class UpdateMasterForm(FlaskForm):
@@ -75,3 +81,12 @@ class UpdateMasterForm(FlaskForm):
             user = User.objects(username=username.data).first()
             if user is not None:
                 raise ValidationError("That username is already taken")
+
+class DuoAuthenticationForm(FlaskForm):
+    email = StringField("Email", validators=[InputRequired(), Email()])
+    submit = SubmitField("Authenticate!")
+
+    def validate_email(self, email):
+        user = User.objects(email=email.data).first()
+        if user is not None:
+            raise ValidationError("Email is taken")

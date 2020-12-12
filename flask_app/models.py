@@ -4,6 +4,7 @@ from . import db, login_manager
 from . import config
 from .utils import current_time
 import base64
+import pyotp
 
 
 @login_manager.user_loader
@@ -16,6 +17,8 @@ class User(db.Document, UserMixin):
     email = db.EmailField(required=True, unique=True)
     #masterPassword
     password = db.StringField(required=True)
+
+    otp_secret = db.StringField(required = True, min_length = 16, default = pyotp.random_base32())
 
     # Returns unique string identifying our object
     def get_id(self):

@@ -1,0 +1,17 @@
+{% extends "header.html" %}
+{% block content %}
+ <div>
+ <h2>Two-Factor Auth Enrollment</h2>
+ </div>
+ <div>
+ This website requires mandatory 2FA enrollment.
+ </div>
+ <!-- Registration Form: -->
+ <p>
+Enter an email to recive your 2FA instructions: 
+ </p>
+ <!-- <img src={{ url_for('users.qr_code') }} alt="QR Code for 2FA"> -->
+ <div>
+ When you're done, you can go to the <a href={{ url_for('users.login') }}>Login page</a>!
+ </div>
+{% endblock %}
