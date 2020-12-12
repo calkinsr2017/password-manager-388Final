@@ -14,6 +14,7 @@ from wtforms.validators import (
 )
 
 from .models import User
+from .utils import *
 
 class SearchForm(FlaskForm):
     search_query = StringField(
@@ -53,6 +54,10 @@ class RegistrationForm(FlaskForm):
         user = User.objects(email=email.data).first()
         if user is not None:
             raise ValidationError("Email is taken")
+
+    def validate_password(self, password):
+        if not verifyPassword(str(password.data)):
+            raise ValidationError("Password must contain one number and special char")
 
 
 class LoginForm(FlaskForm):

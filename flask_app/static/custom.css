@@ -206,8 +206,8 @@ Login stuff
 /* Password page */
 
 .passwords {
-    left: 50%
-    position: absolute;
+    left: 50%;
+    
     top: 5%;
     min-width: 100vh;
     text-align: center;
