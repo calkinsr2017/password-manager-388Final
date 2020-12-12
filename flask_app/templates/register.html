@@ -1,23 +1,15 @@
 {% extends "header.html" %}
 {% block content %}
-<div class="row">
-    <div class="col">
-        <h2>Registration</h2>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        If you already have an account, then just <a href="{{ url_for('users.login') }}">Log In!</a>
-    </div>
-</div>
-<!-- Registration Form: -->
-<div class="row">
-    <div class="col">
+
+<header class="page-header header container-fluid">
+
+    <div class="registration">
+        <h1>Registration</h1>
         <form action="" method="post">
             {{ form.csrf_token }}
             <div class="form-group">
-                {{ form.username.label(class="form-control-label") }}
-                {{ form.username(class="form-control form-control-lg") }}
+                
+                {{ form.username(class="form-control form-control-lg", placeholder="Username") }}
                 {% if form.username.errors %}
                 <div class="alert alert-warning" role="alert">
                     {% for error in form.username.errors %}
@@ -27,8 +19,8 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ form.email.label(class="form-control-label") }}
-                {{ form.email(class="form-control form-control-lg") }}
+            
+                {{ form.email(class="form-control form-control-lg", placeholder="Email") }}
                 {% if form.email.errors %}
                 <div class="alert alert-warning" role="alert">
                     {% for error in form.email.errors %}
@@ -38,8 +30,8 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ form.password.label(class="form-control-label") }}
-                {{ form.password(class="form-control form-control-lg") }}
+            
+                {{ form.password(class="form-control form-control-lg", placeholder="Password") }}
                 {% if form.password.errors %}
                 <div class="alert alert-warning" role="alert">
                     {% for error in form.password.errors %}
@@ -49,8 +41,8 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ form.confirm_password.label(class="form-control-label") }}
-                {{ form.confirm_password(class="form-control form-control-lg") }}
+                
+                {{ form.confirm_password(class="form-control form-control-lg", placeholder="Confirm Password") }}
                 {% if form.confirm_password.errors %}
                 <div class="alert alert-warning" role="alert">
                     {% for error in form.confirm_password.errors %}
@@ -63,7 +55,29 @@
                 {{ form.submit(class="form-control form-control-lg") }}
             </div>
         </form>
+        <p>If you already have an account, then just <a href="{{ url_for('users.login') }}">Log In!</a></p> 
+
     </div>
-</div>
+</header>
+
+<footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+        <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h6 class="text-uppercase font-weight-bold">Contact</h6>
+        <p>1640 Riverside Drive, Hill Valley, California
+        <br/>info@mywebsite.com
+        <br/>+ 01 234 567 88
+        <br/>+ 01 234 567 89</p>
+      </div>
+    </div>
+    <div class="footer-copyright text-center">© 2020 Copyright: MyWebsite.com</div>
+  </footer>
+
 
 {% endblock %}

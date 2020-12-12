@@ -1,36 +1,35 @@
 {% extends "header.html" %}
 {% block content %}
-<div class="row">
-    <div class="col">
-        <img class="propic" src="data:image/png;base64,{{image}}" alt="image">
-    </div>
-    <div class="col">
+
+<header class="page-header header container-fluid">
+    <div class="passwords">
         <h2>{{ username }}'s Passwords</h2>
+        <div class="row">
+            <div class="col">
+                <small class="float-right">{{ passwords.count() }} passwords</small>
+                <ul class="media-list">
+                    {% for password in passwords %}
+                    <li class="media review-item">
+                        <div class="media-body">
+                           
+                            <strong><br> App:  {{ password.app }}</strong>
+                                <br> Username: {{ password.username }} 
+                                <br> Password: {{ password.password }}
+                                <br> Link: <a href="url">{{ password.appLink }} </a>                   
+                                <p>
+                                
+                            </p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <a href="{{ url_for('passwords.app_details') }}">
+            <h4>Store a New Password!</h4>
+        </a>
     </div>
-</div>
-<div class="row">
-    <div class="col">
-        <h1> Passwords <small class="float-right">{{ passwords.count() }} passwords</small></h1>
-        <ul class="media-list">
-            {% for password in passwords %}
-            <li class="media review-item">
-                <div class="media-body">
-                    <span class="float-right">
-                        
-                    </span>
-                    <strong>
-                        <br> App:  {{ password.app }}
-                        </strong>
-                        <br> Username: {{ password.username }} 
-                        <br> Password: {{ password.password }}
-                        <br> Link: <a href="url">{{ password.appLink }} </a>                   
-                        <p>
-                        
-                    </p>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
+   
+</header>
+
 {% endblock %}
