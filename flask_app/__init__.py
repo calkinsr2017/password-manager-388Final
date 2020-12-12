@@ -47,9 +47,9 @@ def create_app(test_config=None):
 
     login_manager.login_view = "users.login"
 
-   # app.config['SECRET_KEY'] = "a"
-   # app.config['SESSION_TYPE'] = 'filesystem'
-   # app.config.from_object(__name__)
-   # Session(app) <!--
+    SESSION_TYPE = 'redis'
+    app.config['SECRET_KEY'] = "a"
+    app.config.from_object(__name__)
+    Session(app)
 
     return app
