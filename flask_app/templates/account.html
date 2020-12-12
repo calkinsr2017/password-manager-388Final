@@ -1,71 +1,83 @@
 {% extends "header.html" %}
 {% block content %}
-<div class="row">
-    <div class="col">
+
+
+
+<header class="page-header header container-fluid">
+
+    <div class="account">
         <h1>Hey, {{ current_user.username }}!</h1>
+        <br>
+        <div class="row">
+            <div class="col">
+                <form action="" method="post">
+                    {{ search_form.csrf_token }}
+                    <div class="form-group">
+                        <h3 class="feature-title">Search for Your App</h3>
+                        {{ search_form.search_query(class="form-control form-control-lg", placeholder="Search for your app") }}
+    
+                        {% if search_form.search_query.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            {% for error in search_form.search_query.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ search_form.submit(class="form-control form-control-lg") }}
+                    </div>
+                </form>
+                <a href="{{ url_for('passwords.app_details') }}">
+                    <h4>Store a New Password!</h4>
+                </a>
+                <a href="{{ url_for('passwords.user_detail', username=current_user.username) }}">
+                    <h4>See Passwords</h4>
+                </a>
+            </div>
+            <div class="col">
+                <form action="" method="post">
+                    {{ master_form.csrf_token }}
+                    <div class="form-group">
+                        <h3 class="feature-title">Change your Username</h3>
+                        {{ master_form.username(class="form-control form-control-lg", placeholder="New Username") }}
+                        
+                        {% if master_form.username.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            {% for error in master_form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+    
+                    </div>
+
+                    <div class="form-group">
+                      
+                        {{ master_form.password(class="form-control form-control-lg", placeholder="Password") }}
+        
+                        {% if master_form.password.errors %}
+                        <div class="alert alert-warning" role="alert">
+                            {% for error in master_form.password.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ master_form.submit(class="form-control form-control-lg") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+            
+       
     </div>
-</div>
+     
+        
+    
+</header>
 
-<div class="row">
-    <div class="col">
-        <form action="" method="post">
-            {{ search_form.csrf_token }}
-            <div class="form-group">
-                {{ search_form.search_query.label(class="form-control-label") }}
-                {{ search_form.search_query(class="form-control form-control-lg") }}
 
-                {% if search_form.search_query.errors %}
-                <div class="alert alert-warning" role="alert">
-                    {% for error in search_form.search_query.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ search_form.submit }}
-            </div>
-        </form>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">
-        <form action="" method="post">
-            {{ master_form.csrf_token }}
-            <div class="form-group">
-                {{ master_form.username.label(class="form-control-label") }}
-                {{ master_form.username(class="form-control form-control-lg") }}
-
-                {{ master_form.password.label(class="form-control-label") }}
-                {{ master_form.password(class="form-control form-control-lg") }}
-
-                {% if master_form.username.errors %}
-                <div class="alert alert-warning" role="alert">
-                    {% for error in master_form.username.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-
-                {% if master_form.password.errors %}
-                <div class="alert alert-warning" role="alert">
-                    {% for error in master_form.password.errors %}
-                    <span>{{ error }}</span>
-                    {% endfor %}
-                </div>
-                {% endif %}
-            </div>
-            <div class="form-group">
-                {{ master_form.submit }}
-            </div>
-        </form>
-    </div>
-</div>
-<a href="{{ url_for('passwords.app_details') }}">
-    <h4>Click here to store a password!</h4>
-</a>
-<a href="{{ url_for('passwords.user_detail', username=current_user.username) }}">
-    <h4>Click here to see all your passwords!</h4>
-</a>
 {% endblock %}>

@@ -40,11 +40,15 @@ body {
 /********************/
 
 .header {
-    background-image: url('../static/header-background.jpg');
+   
     background-size: cover;
     min-height:100vh;
     background-position: center center;
     position: relative;
+}
+
+.index {
+    background-image: url('../static/header-background.jpg');
 }
 
 .overlay {
@@ -133,3 +137,79 @@ body {
     color: #666;
     padding: 40px 0;
 }
+
+/*
+Login stuff
+*/
+
+.login  {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+}
+
+.login h1 {
+    top: 45%;
+    color: #6ab446;
+}
+
+/*Registration stuff*/
+
+
+.registration  {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+}
+
+.registration h1 {
+    top: 45%;
+    color: #6ab446;
+}
+
+/* App registration*/
+
+.appRegistration  {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-55%, -55%);
+    min-width: 40vh;
+    text-align: center;
+}
+
+.appRegistration h1 {
+    top: 45%;
+    color: #6ab446;
+}
+
+/*Account page*/
+
+.account {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-55%, -55%);
+    min-width: 60vh;
+    text-align: center;
+}
+
+.account h1 {
+    top: 45%;
+    color: #6ab446;
+}
+
+/* Password page */
+
+.passwords {
+    left: 50%
+    position: absolute;
+    top: 5%;
+    min-width: 100vh;
+    text-align: center;
+}
+

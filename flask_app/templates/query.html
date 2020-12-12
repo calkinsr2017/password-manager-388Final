@@ -4,7 +4,7 @@
     <p>{{ error_msg }}</p>
 {% endif %}
 
-<div class="container-fluid">
+<header class="page-header header container-fluid">
     {% for result in results %}
     <div class="media">
         <div class="media-body">
@@ -17,6 +17,7 @@
         </div>
     </div>
     {% endfor %}
-</div>
+</header>
+
 
 {% endblock %}
