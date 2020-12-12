@@ -63,7 +63,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Login")
     token = StringField('Token', validators = [InputRequired(), Length(min = 6, max = 6)])
 
-    def validate_token(self, token)
+    def validate_token(self, token):
         user = User.query.filter_by(username= self.username.data).first()
         if user is not None:
             tok_verified = pyotp.TOTP(user.otp.secret).verify(token.data)
