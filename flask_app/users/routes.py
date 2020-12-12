@@ -84,8 +84,6 @@ def register():
         hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         user = User(username=form.username.data, email=form.email.data, password=hashed)
 
-        db.session.add(user)
-        db.session.commit()
         session['new_username'] = user.username
 
         user.save()
