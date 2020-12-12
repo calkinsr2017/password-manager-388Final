@@ -18,7 +18,7 @@ class User(db.Document, UserMixin):
     #masterPassword
     password = db.StringField(required=True)
 
-    otp_secret = db.StringField(required = True, min_length = 16, default = pyotp.random_base32())
+    #otp_secret = db.StringField(required = True, min_length = 16, default = pyotp.random_base32())
 
     # Returns unique string identifying our object
     def get_id(self):

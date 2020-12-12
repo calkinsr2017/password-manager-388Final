@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, render_template, flash, request
+from flask import Blueprint, redirect, url_for, render_template, flash, request, session
 from flask_login import current_user, login_required, login_user, logout_user
 
 from .. import bcrypt
@@ -85,7 +85,7 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed)
         user.save()
 
-        session['new_username'] = user.username
+        #session['new_username'] = user.username
 
         return redirect(url_for("users.login"))
 
