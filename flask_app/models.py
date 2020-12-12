@@ -4,6 +4,7 @@ from . import db, login_manager
 from . import config
 from .utils import current_time
 import base64
+import pyotp
 
 
 @login_manager.user_loader
