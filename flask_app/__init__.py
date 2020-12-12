@@ -32,7 +32,6 @@ def page_not_found(e):
 
 def create_app(test_config=None):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "Super secret key"
     app.static_folder = 'static'
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
@@ -49,6 +48,7 @@ def create_app(test_config=None):
     login_manager.login_view = "users.login"
 
     SESSION_TYPE = 'redis'
+    app.config['SECRET_KEY'] = "a"
     app.config.from_object(__name__)
     Session(app)
 
