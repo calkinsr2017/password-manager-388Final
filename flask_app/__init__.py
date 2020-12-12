@@ -26,13 +26,14 @@ bcrypt = Bcrypt()
 from .users.routes import users
 from .passwords.routes import passwords
 
+app = Flask(__name__)
+app.config["SECRET_KEY"] = "a"
+
 def page_not_found(e):
     return render_template("404.html"), 404
 
 
 def create_app(test_config=None):
-    app = Flask(__name__)
-    app.config["SECRET_KEY"] = "a"
     app.static_folder = 'static'
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
