@@ -16,7 +16,7 @@ from datetime import datetime
 import os
 
 from flask import Flask, session
-from flask.ext.session import Session
+from flask.session import Session
 
 
 db = MongoEngine()
@@ -36,7 +36,7 @@ def create_app(test_config=None):
     SESSION_TYPE = 'redis'
     app.config.from_object(__name__)
     Session(app)
-    
+
     app.static_folder = 'static'
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
