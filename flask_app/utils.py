@@ -34,6 +34,6 @@ def verifyPassword(password):
         elif re.search("\s", password): 
             flag = False
             break
-
+        break    
     return flag
     
