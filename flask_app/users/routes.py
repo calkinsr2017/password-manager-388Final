@@ -34,6 +34,40 @@ def account():
         search_form =search_form,
     )
 
+@users.route("/qr_code")
+def qr_code():
+    if 'new_username' not in session:
+        return redirect(url_for('passwords.index'))
+
+    user = User.objects(username = session['new_username']).first()
+    session.pop('new_username')
+
+    uri = pyotp.totp.TOTP(user.otp.secret).provisioning_uri(name = user.username, issuer_name = 'Passwords-2FA')
+    img = qrcode.make(uri, image_factory = svg.SvgPathImage)
+    stream = BytesIO()
+    img.save(stream)
+
+    headers = {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+    }
+
+    return stream.getvalue(), headers
+
+@users.route("/tfa")
+    if 'new_username' is not in session:
+        return redirect(url_for("passwords.index"))
+
+    headers = {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+    }
+
+    return render_template("2fa.html"), headers
+
 
 @users.route("/register", methods=["GET", "POST"])
 def register():
@@ -46,6 +80,8 @@ def register():
         hashed = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
         user = User(username=form.username.data, email=form.email.data, password=hashed)
         user.save()
+
+        session['new_username'] = user.username
 
         return redirect(url_for("users.login"))
 
