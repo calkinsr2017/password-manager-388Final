@@ -47,9 +47,11 @@ def create_app(test_config=None):
 
     login_manager.login_view = "users.login"
 
-    SESSION_TYPE = 'redis'
     app.config['SECRET_KEY'] = "Super secret key"
-    app.config.from_object(__name__)
-    Session(app)
+
+    app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE="Lax",
+    )
 
     return app
