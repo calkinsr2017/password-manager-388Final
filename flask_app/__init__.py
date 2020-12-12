@@ -32,11 +32,6 @@ def page_not_found(e):
 
 def create_app(test_config=None):
     app = Flask(__name__)
-
-    SESSION_TYPE = 'redis'
-    app.config.from_object(__name__)
-    Session(app)
-
     app.static_folder = 'static'
     app.config.from_pyfile("config.py", silent=False)
     if test_config is not None:
@@ -51,5 +46,9 @@ def create_app(test_config=None):
     app.register_error_handler(404, page_not_found)
 
     login_manager.login_view = "users.login"
+
+    SESSION_TYPE = 'redis'
+    app.config.from_object(__name__)
+    Session(app)
 
     return app
