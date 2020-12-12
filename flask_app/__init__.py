@@ -16,7 +16,7 @@ from datetime import datetime
 import os
 
 from flask import Flask, session
-from flask.session import Session
+from flask_session import Session
 
 
 db = MongoEngine()
