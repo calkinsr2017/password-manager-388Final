@@ -5,6 +5,9 @@ from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdateMasterForm, SearchForm
 from ..models import User
 
+import qrcode.image.svg as svg
+from io import BytesIO
+
 
 users = Blueprint("users", __name__)
 
