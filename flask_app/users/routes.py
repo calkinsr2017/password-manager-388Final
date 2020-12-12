@@ -8,9 +8,6 @@ from ..models import User
 import qrcode.image.svg as svg
 from io import BytesIO
 
-from flask import Flask, session
-from flask.ext.session import Session
-
 
 users = Blueprint("users", __name__)
 
