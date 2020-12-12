@@ -1,5 +1,5 @@
 # 3rd-party packages
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_mongoengine import MongoEngine
 from flask_login import (
     LoginManager,
@@ -14,9 +14,6 @@ from werkzeug.utils import secure_filename
 # stdlib
 from datetime import datetime
 import os
-
-from flask import Flask, session
-from flask_session import Session
 
 
 db = MongoEngine()
@@ -47,11 +44,9 @@ def create_app(test_config=None):
 
     login_manager.login_view = "users.login"
 
+    SESSION_TYPE = 'redis'
     app.config['SECRET_KEY'] = "Super secret key"
-
-    app.config.update(
-    SESSION_COOKIE_HTTPONLY=True,
-    SESSION_COOKIE_SAMESITE="Lax",
-    )
+    app.config.from_object(__name__)
+    Session(app)
 
     return app
