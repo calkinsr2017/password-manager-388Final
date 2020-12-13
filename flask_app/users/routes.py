@@ -9,6 +9,12 @@ import qrcode.image.svg as svg
 from io import BytesIO
 import pyotp
 import qrcode
+from flask import Flask
+from flask_mail import Mail
+from flask_mail import Message
+
+app = Flask(__name__)
+mail = Mail(app)
 
 
 users = Blueprint("users", __name__)
@@ -87,7 +93,10 @@ def register():
         user.save()
 
         session['new_username'] = user.username
-
+        msg = Message("Hello",
+                  sender="thevault@TheVault.com",
+                  recipients=[user.email.data])
+        mail.send(msg)
         return redirect(url_for("users.tfa"))
 
     return render_template("register.html", title="Register", form=form)
