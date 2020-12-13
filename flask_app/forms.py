@@ -58,7 +58,7 @@ class RegistrationForm(FlaskForm):
 
     def validate_password(self, password):
         if not verifyPassword(str(password.data)):
-            raise ValidationError("Password must contain one number and special char")
+            raise ValidationError("Password must contain an uppercase letter, a number, and a special char")
 
 
 class LoginForm(FlaskForm):
