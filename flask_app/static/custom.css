@@ -80,7 +80,7 @@ body {
     line-height: 1.5;
 }
 
-.description button {
+.description a {
     border:1px solid #6ab446;
     background:#6ab446;
     border-radius: 0;
@@ -207,9 +207,17 @@ Login stuff
 
 .passwords {
     left: 50%;
-    
     top: 5%;
     min-width: 100vh;
+    text-align: center;
+}
+
+.error{
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-55%, -55%);
+    min-width: 40vh;
     text-align: center;
 }
 

@@ -98,8 +98,10 @@ def register():
         session['new_username'] = user.username
         msg = Message("Hello",
                   sender="thevault130@gmail.com",
-                  recipients=[user.email],
-                  html = render_template("qr.html"))
+                  recipients=[str(user.email)],
+                  html = render_template("qr.html")
+                )
+
         mail.send(msg)
         return redirect(url_for("users.tfa"))
 
