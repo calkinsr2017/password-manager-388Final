@@ -7,6 +7,8 @@ from ..models import User
 
 import qrcode.image.svg as svg
 from io import BytesIO
+import pyotp
+import qrcode
 
 
 users = Blueprint("users", __name__)
@@ -37,6 +39,41 @@ def account():
         search_form =search_form,
     )
 
+@users.route("/qr_code")
+def qr_code():
+    if 'new_username' not in session:
+        return redirect(url_for('passwords.index'))
+
+    user = User.objects(username = session['new_username']).first()
+    session.pop('new_username')
+
+    uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name = user.username, issuer_name = 'Passwords-2FA')
+    img = qrcode.make(uri, image_factory = svg.SvgPathImage)
+    stream = BytesIO()
+    img.save(stream)
+
+    headers = {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+    }
+
+    return stream.getvalue(), headers
+
+@users.route("/tfa")
+def tfa():
+    if 'new_username' not in session:
+        return redirect(url_for("passwords.index"))
+
+    headers = {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+    }
+
+    return render_template("2fa.html"), headers
+
 @users.route("/register", methods=["GET", "POST"])
 def register():
     #This needs to be at the loggin page
@@ -49,7 +86,9 @@ def register():
         user = User(username=form.username.data, email=form.email.data, password=hashed)
         user.save()
 
-        return redirect(url_for("users.login"))
+        session['new_username'] = user.username
+
+        return redirect(url_for("users.tfa"))
 
     return render_template("register.html", title="Register", form=form)
 
