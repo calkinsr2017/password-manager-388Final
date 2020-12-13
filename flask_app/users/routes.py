@@ -95,7 +95,7 @@ def register():
         session['new_username'] = user.username
         msg = Message("Hello",
                   sender="thevault@TheVault.com",
-                  recipients=[user.email.data])
+                  recipients=[user.email])
         mail.send(msg)
         return redirect(url_for("users.tfa"))
 
