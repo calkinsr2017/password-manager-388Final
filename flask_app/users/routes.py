@@ -5,7 +5,7 @@ from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdateMasterForm, SearchForm
 from ..models import User
 
-import qrcode.image.svg as svg
+import qrcode.image.pil as pil
 from io import BytesIO
 import pyotp
 import qrcode
@@ -14,8 +14,18 @@ from flask_mail import Mail
 from flask_mail import Message
 
 app = Flask(__name__)
-mail = Mail(app)
+app.config.update(dict(
+    DEBUG = True,
+    MAIL_SERVER = 'smtp.gmail.com',
+    MAIL_PORT = 587,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
+    MAIL_ASCII_ATTACHMENTS = True,
+    MAIL_USERNAME = 'thevault130@gmail.com',
+    MAIL_PASSWORD = 'Vau!3L!ht@',
+))
 
+mail = Mail(app)
 
 users = Blueprint("users", __name__)
 
@@ -54,18 +64,11 @@ def qr_code():
     session.pop('new_username')
 
     uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name = user.username, issuer_name = 'Passwords-2FA')
-    img = qrcode.make(uri, image_factory = svg.SvgPathImage)
+    img = qrcode.make(uri, image_factory=pil.PilImage)
     stream = BytesIO()
     img.save(stream)
 
-    headers = {
-        'Content-Type': 'image/svg+xml',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0' # Expire immediately, so browser has to reverify everytime
-    }
-
-    return stream.getvalue(), headers
+    return stream.getvalue()
 
 @users.route("/tfa")
 def tfa():
@@ -94,8 +97,9 @@ def register():
 
         session['new_username'] = user.username
         msg = Message("Hello",
-                  sender="thevault@TheVault.com",
-                  recipients=[user.email])
+                  sender="thevault130@gmail.com",
+                  recipients=[user.email],
+                  html = render_template("qr.html"))
         mail.send(msg)
         return redirect(url_for("users.tfa"))
 
