@@ -129,3 +129,6 @@ def logout():
     logout_user()
     return redirect(url_for("passwords.index"))
 
+@users.route("/description")
+def description():
+    return render_template("description.html")
