@@ -5,7 +5,7 @@ from .. import bcrypt
 from ..forms import RegistrationForm, LoginForm, UpdateMasterForm, SearchForm
 from ..models import User
 
-import qrcode.image.pil as pil
+import qrcode.image.svg as svg
 from io import BytesIO
 import pyotp
 import qrcode
@@ -64,11 +64,18 @@ def qr_code():
     session.pop('new_username')
 
     uri = pyotp.totp.TOTP(user.otp_secret).provisioning_uri(name = user.username, issuer_name = 'Passwords-2FA')
-    img = qrcode.make(uri, image_factory=pil.PilImage)
+    img = qrcode.make(uri, image_factory=svg.SvgPathImage)
     stream = BytesIO()
     img.save(stream)
 
-    return stream.getvalue()
+    headers = {
+        'Content-Type': 'image/svg+xml',
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0' 
+    }
+
+    return stream.getvalue(), headers
 
 @users.route("/tfa")
 def tfa():
@@ -78,7 +85,7 @@ def tfa():
     headers = {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
-        'Expires': '0' # Expire immediately, so browser has to reverify everytime
+        'Expires': '0' 
     }
 
     return render_template("2fa.html"), headers
@@ -96,12 +103,22 @@ def register():
         user.save()
 
         session['new_username'] = user.username
+<<<<<<< HEAD
         msg = Message("Hello",
                   sender="thevault130@gmail.com",
                   recipients=[str(user.email)],
                   html = render_template("qr.html")
                 )
 
+=======
+        msg = Message(
+                subject = "Hello New User",
+                sender="thevault130@gmail.com",
+                recipients=[user.email],
+                body = "Welcome to password manager, a website where you can store your passwords for your favorite apps and websites. \n \
+                Please remember to download the OTP Authenticator app to be able to login to our website after registration."
+                )
+>>>>>>> dfb5bc788dd5975b2e1b007a9ebf70ba90e5d5d1
         mail.send(msg)
         return redirect(url_for("users.tfa"))
 

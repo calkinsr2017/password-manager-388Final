@@ -13,6 +13,7 @@ from wtforms.validators import (
     ValidationError,
 )
 
+import pyotp
 from .models import User
 from .utils import *
 
@@ -57,13 +58,22 @@ class RegistrationForm(FlaskForm):
 
     def validate_password(self, password):
         if not verifyPassword(str(password.data)):
-            raise ValidationError("Password must contain one number and special char")
+            raise ValidationError("Password must contain an uppercase letter, a number, and a special char")
 
 
 class LoginForm(FlaskForm):
     username = StringField("Username", validators=[InputRequired()])
     password = PasswordField("Password", validators=[InputRequired()])
     submit = SubmitField("Login")
+
+    token = StringField('Token', validators=[InputRequired(), Length(min=6, max=6)])
+
+    def validate_token(self, token):
+        user = User.objects(username=self.username.data).first()
+        if user is not None:
+            tok_verified = pyotp.TOTP(user.otp_secret).verify(token.data)
+            if not tok_verified:
+                raise ValidationError("Invalid Token")
 
 
 class UpdateMasterForm(FlaskForm):
