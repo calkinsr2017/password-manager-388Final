@@ -26,7 +26,7 @@ def index():
 @passwords.route("/search-results/<app_name>", methods=["GET", "POST"])
 def search_query(app_name):
 
-    results = UserPasswords.objects(app = app_name)
+    results = UserPasswords.objects(user = current_user._get_current_object(), app = app_name)
 
     return render_template("query.html", results=results)
 
