@@ -2,50 +2,43 @@ atomicwrites==1.4.0
 attrs==20.2.0
 bcrypt==3.2.0
 blinker==1.4
-brotlipy==0.7.0
 cachelib==0.1.1
 certifi==2020.6.20
-cffi @ file:///C:/ci/cffi_1600699246375/work
+cffi==1.14.3
 chardet==3.0.4
 click==7.1.2
 colorama==0.4.3
-cryptography @ file:///C:/ci/cryptography_1601046905460/work
 dnspython==2.0.0
 email-validator==1.1.1
 Flask==1.1.2
 Flask-Bcrypt==0.7.1
 Flask-Login==0.5.0
-Flask-Mail==0.9.0
+Flask-Mail==0.9.1
 flask-mongoengine==0.9.5
 Flask-PyMongo==2.3.0
 Flask-Session==0.3.2
 Flask-WTF==0.14.3
-gunicorn==20.0.4
-idna @ file:///tmp/build/80754af9/idna_1593446292537/work
-iniconfig @ file:///tmp/build/80754af9/iniconfig_1602780191262/work
+idna==2.10
+iniconfig==1.1.1
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
 mongoengine==0.20.0
-more-itertools @ file:///tmp/build/80754af9/more-itertools_1598884071673/work
+more-itertools==8.5.0
 packaging==20.4
 Pillow==8.0.1
 pluggy==0.13.1
-py @ file:///tmp/build/80754af9/py_1593446248552/work
-pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
+py==1.9.0
+pycparser==2.20
 pymongo==3.11.0
-pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1594392929924/work
 pyotp==2.4.1
 pyparsing==2.4.7
-PySocks==1.7.1
 pytest==6.1.2
 python-dotenv==0.15.0
 qrcode==6.1
-requests @ file:///tmp/build/80754af9/requests_1592841827918/work
+requests==2.24.0
 six==1.15.0
-toml @ file:///tmp/build/80754af9/toml_1592853716807/work
+toml==0.10.1
 urllib3==1.25.11
 Werkzeug==1.0.1
-win-inet-pton==1.1.0
-wincertstore==0.2
-WTForms @ file:///tmp/build/80754af9/wtforms_1597707484216/work
+WTForms==2.3.3
