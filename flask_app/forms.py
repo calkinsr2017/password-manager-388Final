@@ -94,12 +94,3 @@ class UpdateMasterForm(FlaskForm):
             user = User.objects(email=email.data).first()
             if user is not None:
                 raise ValidationError("Email is already taken")
-
-class DuoAuthenticationForm(FlaskForm):
-    email = StringField("Email", validators=[InputRequired(), Email()])
-    submit = SubmitField("Authenticate!")
-
-    def validate_email(self, email):
-        user = User.objects(email=email.data).first()
-        if user is not None:
-            raise ValidationError("Email is taken")
