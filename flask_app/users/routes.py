@@ -103,14 +103,7 @@ def register():
         user.save()
 
         session['new_username'] = user.username
-<<<<<<< HEAD
-        msg = Message("Hello",
-                  sender="thevault130@gmail.com",
-                  recipients=[str(user.email)],
-                  html = render_template("qr.html")
-                )
 
-=======
         msg = Message(
                 subject = "Hello New User",
                 sender="thevault130@gmail.com",
@@ -118,7 +111,6 @@ def register():
                 body = "Welcome to password manager, a website where you can store your passwords for your favorite apps and websites. \n \
                 Please remember to download the OTP Authenticator app to be able to login to our website after registration."
                 )
->>>>>>> dfb5bc788dd5975b2e1b007a9ebf70ba90e5d5d1
         mail.send(msg)
         return redirect(url_for("users.tfa"))
 
