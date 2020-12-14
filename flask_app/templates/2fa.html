@@ -1,16 +1,13 @@
 {% extends "header.html" %}
 {% block content %}
- <div>
- <h2>Two-Factor Auth Enrollment</h2>
- </div>
- <div>
- This website requires mandatory 2FA enrollment and you will need to use the OTP Authenticator App to enroll and log in to your account.
- </div>
- <p>
-	 
- </p>
- <img src={{ url_for('users.qr_code') }} alt="QR Code for 2FA">
- <div>
- When you're done, you can go to the <a href={{ url_for('users.login') }}>Login page</a>!
- </div>
+
+<header class="page-header header container-fluid">
+    <div class="twoFactor">
+        <h1>Two-Factor Auth Enrollment</h1>
+        <p> This website requires mandatory 2FA enrollment. Scan the QR code below from your favorite OTP Authenticator app. You will need a pin to log in!</p>
+        <img src="{{ url_for('users.qr_code') }}" alt="QR Code for 2FA">
+        <p>When you're done, you can go to the <a href="{{ url_for('users.login') }}">Login page</a>!</p>
+    </div>
+</header>
+ 
 {% endblock %}

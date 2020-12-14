@@ -221,3 +221,24 @@ Login stuff
     text-align: center;
 }
 
+/*Two factor*/
+
+.twoFactor {
+    left: 50%;
+    position: absolute;
+    top: 45%;
+    transform: translate(-50%, -55%);
+    text-align: center;
+}
+
+.twoFactor h1 {
+    top: 45%;
+    color: #6ab446;
+}
+
+.learnMore p {
+    color: rgb(0, 0, 0);
+    font-size: 1.3rem;
+    line-height: 1.5;
+}
+
