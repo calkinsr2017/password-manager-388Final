@@ -19,10 +19,7 @@ def verifyPassword(password):
         return False
     flag = True
     while True:   
-        if not re.search("[a-z]", password): 
-            flag = False
-            break
-        elif not re.search("[A-Z]", password): 
+        if not re.search("[A-Z]", password): 
             flag = False
             break
         elif not re.search("[0-9]", password):

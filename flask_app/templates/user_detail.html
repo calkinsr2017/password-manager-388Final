@@ -7,24 +7,37 @@
         <div class="row">
             <div class="col">
                 <small class="float-right">{{ passwords.count() }} passwords</small>
-                <ul class="media-list">
-                    {% for password in passwords %}
-                    <li class="media review-item">
-                        <div class="media-body">
-                           
-                            <strong><br> App:  {{ password.app }}</strong>
-                                <br> Username: {{ password.username }} 
-                                <br> Password: {{ password.password }}
-                                <br> Link: <a href="url">{{ password.appLink }} </a>                   
-                                <p>
-                                
-                            </p>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                      <tr>
+                        <th scope="col">App</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Password</th>
+                        <th scope="col">Link</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for password in passwords %}
+                      <tr>
+                        <th scope="row">{{ password.app }}</th>
+                        <td>{{ password.username }} </td>
+                        <td>{{ password.password }}</td>
+                        <td><a href="url">{{ password.appLink }} </td>
+                      </tr>
+                        {% endfor %}
+                    </tbody>
+                  </table>
+
+
+
+
+
+
+
+
+
+
         <a href="{{ url_for('passwords.app_details') }}">
             <h4>Store a New Password!</h4>
         </a>
