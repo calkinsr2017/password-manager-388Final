@@ -78,9 +78,9 @@ class LoginForm(FlaskForm):
 
 class UpdateMasterForm(FlaskForm):
     username = StringField(
-        "Username", validators=[InputRequired(), Length(min=1, max=40)]
+        "Username", validators=[ Length(min=1, max=40)]
     )
-    password = PasswordField("Password", validators=[InputRequired()])
+    email = StringField("Email", validators=[ Email()])
     submit = SubmitField("Update Username")
 
     def validate_username(self, username):
@@ -88,6 +88,12 @@ class UpdateMasterForm(FlaskForm):
             user = User.objects(username=username.data).first()
             if user is not None:
                 raise ValidationError("That username is already taken")
+
+    def validate_email(self, email):
+        if email.data != current_user.email:
+            user = User.objects(email=email.data).first()
+            if user is not None:
+                raise ValidationError("Email is already taken")
 
 class DuoAuthenticationForm(FlaskForm):
     email = StringField("Email", validators=[InputRequired(), Email()])

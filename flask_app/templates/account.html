@@ -39,7 +39,7 @@
                 <form action="" method="post">
                     {{ master_form.csrf_token }}
                     <div class="form-group">
-                        <h3 class="feature-title">Change your Username</h3>
+                        <h3 class="feature-title">Change your Username and Email</h3>
                         {{ master_form.username(class="form-control form-control-lg", placeholder="New Username") }}
                         
                         {% if master_form.username.errors %}
@@ -54,11 +54,11 @@
 
                     <div class="form-group">
                       
-                        {{ master_form.password(class="form-control form-control-lg", placeholder="Password") }}
+                        {{ master_form.email(class="form-control form-control-lg", placeholder="New Email") }}
         
-                        {% if master_form.password.errors %}
+                        {% if master_form.email.errors %}
                         <div class="alert alert-warning" role="alert">
-                            {% for error in master_form.password.errors %}
+                            {% for error in master_form.email.errors %}
                             <span>{{ error }}</span>
                             {% endfor %}
                         </div>

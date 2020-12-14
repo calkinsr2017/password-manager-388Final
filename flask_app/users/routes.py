@@ -44,8 +44,17 @@ def account():
 
     if master_form.validate_on_submit():
         # current_user.username = username_form.username.data
-        current_user.modify(username=master_form.username.data, password = master_form.password.data)
+        current_user.modify(username=master_form.username.data, email = master_form.email.data)
         current_user.save()
+
+        msg = Message(
+                subject = "Updated Email",
+                sender="thevault130@gmail.com",
+                recipients=[current_user.email],
+                body = "You have succesfully updated your username and email for password manager!"
+                )
+        mail.send(msg)
+
         return redirect(url_for("users.account"))
 
     return render_template(
